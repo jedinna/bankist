@@ -77,6 +77,11 @@ const displayMovments = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
+const calcDisplayBalance = function (movement) {
+  const balance = movement.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+calcDisplayBalance(account1.movements);
 
 const createUserNames = function (accs) {
   accs.forEach(function (acc) {
@@ -87,5 +92,16 @@ const createUserNames = function (accs) {
       .join('');
   });
 };
-createUserNames(accounts);
-console.log(accounts);
+
+const movements = [200, 450, -400, -650, -130, 70, 1300];
+// const deposits = movements.filter(mov => mov > 0);
+// const withdrawals = movements.filter(mov => mov < 0);
+
+// const balance = movements.reduce((acc, cur) => acc + cur, 0);
+// console.log(balance);
+
+// const max = movements.reduce(
+//   (acc, cur) => (acc > cur ? acc : cur),
+//   movements[0]
+// );
+// console.log(max);
