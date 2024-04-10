@@ -83,6 +83,24 @@ const calcDisplayBalance = function (movement) {
 };
 calcDisplayBalance(account1.movements);
 
+const calcDisplaySummery = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, cur) => acc + cur, 0);
+  labelSumIn.textContent = `${incomes}💲`;
+
+  const out = movements.filter(mov => mov < 0).reduce((acc, cur) => acc + cur);
+  labelSumOut.textContent = `${Math.abs(out)}💲`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter(int => int >= 1)
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}`;
+};
+calcDisplaySummery(account1.movements);
+
 const createUserNames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -93,7 +111,7 @@ const createUserNames = function (accs) {
   });
 };
 
-const movements = [200, 450, -400, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, -650, -130, 70, 1300];
 // const deposits = movements.filter(mov => mov > 0);
 // const withdrawals = movements.filter(mov => mov < 0);
 
@@ -105,3 +123,27 @@ const movements = [200, 450, -400, -650, -130, 70, 1300];
 //   movements[0]
 // );
 // console.log(max);
+
+// const calcAverageHumanAge = function (ages) {
+//   const humanAge = ages.map(dogAge =>
+//     dogAge <= 2 ? dogAge * 2 : 16 + dogAge * 4
+//   );
+
+//   console.log(humanAge);
+//   const UboveAge = humanAge.filter(cur => cur > 18);
+
+//   console.log(UboveAge);
+//   const averageAge = UboveAge.reduce(
+//     (acc, cur) => acc + cur,0 )/ UboveAge.length - 1
+
+//   console.log(averageAge);
+// };
+
+// const calcAverageHumanAge = ages =>
+//   ages
+//     .map(dogAge => (dogAge <= 2 ? dogAge * 2 : 16 + dogAge * 4))
+//     .filter(cur => cur > 18)
+//     .reduce((acc, cur, i, arr) => acc + cur/arr.length, 0) ;
+    
+// console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
+// console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
